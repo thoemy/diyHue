@@ -116,10 +116,9 @@ class HomeAssistantClient(WebSocketClient):
             "service_data": service_data
         }
 
-        payload["service"] = "turn_off"
-        if 'on' in data:
-            if data['on']:
-                payload["service"] = "turn_on"
+        payload["service"] = "turn_on"
+        if 'on' in data and not data['on']:
+            payload["service"] = "turn_off"
 
         color_from_hsv = False
         for key, value in data.items():
@@ -133,11 +132,6 @@ class HomeAssistantClient(WebSocketClient):
                 color_from_hsv = True
             if key == "sat":
                 color_from_hsv = True
-            if key == "on":
-                if value:
-                    payload["service"] = "turn_on"
-                else:
-                    payload["service"] = "turn_off"
             if key == "alert":
                 service_data['flash'] = "long"
             if key == "transitiontime":
