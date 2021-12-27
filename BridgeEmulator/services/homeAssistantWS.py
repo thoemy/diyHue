@@ -229,8 +229,7 @@ def create_websocket_client():
             "Home Assistant Web Socket Client disconnected trying to (re)connect")
 
     try:
-        homeassistant_ws_client = HomeAssistantClient(
-            homeassistant_url, protocols=['http-only', 'chat'])
+        homeassistant_ws_client = HomeAssistantClient(homeassistant_url)
         homeassistant_ws_client.connect()
         logging.info("Home Assistant Web Socket Client connected")
     except:
